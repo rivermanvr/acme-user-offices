@@ -1,6 +1,7 @@
 const express = require( 'express' );
 const app = express();
 const path = require( 'path' );
+const swig = require( 'swig' );
 const bodyParser = require( 'body-parser' );
 const routesUsers = require( './routes/users' );
 const routesOffices = require( './routes/offices' );
@@ -10,8 +11,12 @@ const morgan = require( 'morgan' );
 const db = require( './db' );
 const models = db.models;
 
+swig.setDefaults({ cache: false });
+app.set('view engine', 'html');
+app.engine('html', swig.renderFile);
+
 app.use('/css', express.static(path.join(__dirname, 'css')));
-app.use('/source', express.static(path.join(__dirname, 'js')));
+app.use('/source', express.static(path.join(__dirname, 'source')));
 app.use('/vendor/bootstrap', express.static(path.join(__dirname, 'node_modules/bootstrap')));
 app.use('/vendor/jquery', express.static(path.join(__dirname, 'node_modules/jquery')));
 
@@ -27,6 +32,7 @@ app.use((req, res, next) => {
   //   next();
   // })
   // .catch(next);
+  next();
 });
 
 app.use('/users', routesUsers);
