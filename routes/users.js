@@ -3,11 +3,20 @@ const router = express.Router();
 const db = require( '../db' );
 const models = db.models;
 
-/*
-GET /users 
-DELETE /users/:id
-PUT /users/:id
-POST /users
-*/
+router.get('/', (req, res, next) => {
+
+});
+
+router.delete('/:id', (req, res, next) => {
+
+});
+
+router.put('/:id', (req, res, next) => {
+
+});
+
+router.post('/', (req, res, next) => {
+
+});
 
 module.exports = router
