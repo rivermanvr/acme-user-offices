@@ -7,6 +7,12 @@ const defineAttr = {
     validate: {
       notEmpty: true
     }
+  },
+  lat: {
+    type: db.Sequelize.FLOAT
+  },
+  lng: {
+    type: db.Sequelize.FLOAT
   }
 };
 

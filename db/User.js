@@ -14,6 +14,4 @@ const defineOptions = {};
 
 const User = db.define('user', defineAttr, defineOptions);
 
-// .....class methods.....
-
 module.exports = User;
