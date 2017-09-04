@@ -2,7 +2,8 @@ const express = require( 'express' );
 const app = express();
 const path = require( 'path' );
 const bodyParser = require( 'body-parser' );
-const routes = require( './routes/users' );
+const routesUsers = require( './routes/users' );
+const routesOffices = require( './routes/offices' );
 const methodOverride = require( 'method-override' );
 const morgan = require( 'morgan' );
 
@@ -28,7 +29,8 @@ app.use((req, res, next) => {
   // .catch(next);
 });
 
-app.use('/users', routes);
+app.use('/users', routesUsers);
+app.use('/offices', routesOffices);
 
 app.get('/', (req, res, next) => {
   res.render('index');
