@@ -24,32 +24,25 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// .....get the data needed for the main route.....
-
-app.use((req, res, next) => {
-
-  // .then(() => {
-  //   next();
-  // })
-  // .catch(next);
-  next();
-});
-
 app.use('/users', routesUsers);
 app.use('/offices', routesOffices);
 
-app.get('/', (req, res, next) => {
-  res.render('index');
-})
-
 app.get('/seed', (req, res, next) => {
   Promise.all([
-    models.User.findAll(),
-    models.Office.findAll()
+    models.User.findAll({
+      include: [models.Office]
+    }),
+    models.Office.findAll({
+      include: [models.User]
+    })
   ])
   .then((users, offices) => {
     res.send({ users, offices });
   })
+})
+
+app.get('/', (req, res, next) => {
+  res.render('index');
 })
 
 // ......our error middleware.......
