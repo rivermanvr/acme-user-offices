@@ -42,6 +42,16 @@ app.get('/', (req, res, next) => {
   res.render('index');
 })
 
+app.get('/seed', (req, res, next) => {
+  Promise.all([
+    models.User.findAll(),
+    models.Office.findAll()
+  ])
+  .then((users, offices) => {
+    res.send({ users, offices });
+  })
+})
+
 // ......our error middleware.......
 
 app.use((req, res, next) => {
