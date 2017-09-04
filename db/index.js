@@ -2,8 +2,8 @@ const db = require( './db' );
 const User = require( './User' );
 const Office = require( './Office' );
 
-User.belongsTo('Office');
-Office.hasMany('User');
+User.belongsTo(Office);
+Office.hasMany(User);
 
 const sync = () => db.sync({ force: true });
 
