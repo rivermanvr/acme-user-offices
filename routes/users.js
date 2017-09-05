@@ -11,7 +11,15 @@ router.delete('/:id', (req, res, next) => {
     .catch(next);
 });
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id/office/:officeId', (req, res, next) => {
+  models.User.findById(req.params.id)
+    .then(user => {
+      return user.setOffice(req.params.officeId);
+    })
+    .then(user => {
+      res.status(200).send(user);
+    })
+    .catch(next);
 
 });
 

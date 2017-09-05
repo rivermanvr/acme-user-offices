@@ -47,7 +47,9 @@ $(document).ready(() => {
       userList({
         id: '#userList',
         users: results[0],
-        removeUser
+        offices: results[1],
+        removeUser,
+        selectOffice
       });
     }
 
@@ -62,6 +64,14 @@ $(document).ready(() => {
           return user.id !== id;
         })
         renderUserList()
+      })
+    }
+
+    //selectOffice function (ajax)
+    function selectOffice (userId, officeId) {
+      $.ajax({
+        method: 'PUT',
+        url: '/users/' + userId + '/office/' + officeId
       })
     }
 
