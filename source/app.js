@@ -116,7 +116,7 @@ $(document).ready(() => {
         url: '/users/' + userId + '/office/' + officeId
       })
       .then(() => {
-        officeFilter(userId * 1, officeId * 1); //.........I am working on this.......
+        officeFilter(userId * 1, officeId * 1);
         renderUserList();
         renderOfficeList();
       })
@@ -139,12 +139,9 @@ $(document).ready(() => {
 
       //ajax request.............................................
       //need a then here.........................................
-      getData()
-      .then(results => {
-        renderUserList();
-        renderOfficeList();
-      })
+      renderUserList();
+      renderOfficeList();
     }
 
-  })    //.then closure
-});     //.ready closure
+  })
+});
