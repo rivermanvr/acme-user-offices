@@ -1,13 +1,19 @@
 function userList(config) {
   var container = $(config.id);
   var divStmts = config.users.map(user => {
-    var optionStmts = config.offices.map(office => {
+    var optionStmts = [];
+    optionStmts.push(`
+      <option value="0" ${ user.officeId === null ? ' selected ' : '' }>
+        --none--
+      </option>
+    `)
+    optionStmts = optionStmts.concat(config.offices.map(office => {
       return `
         <option value="${ office.id }" ${ office.id === user.officeId ? ' selected ' : '' }>
           ${ office.name }
         </option>
       `;
-    })
+    }))
     return `
       <div class="well backWhite nomarginTopBot">
         <h5>${ user.name }</h5>

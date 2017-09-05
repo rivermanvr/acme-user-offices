@@ -14,7 +14,7 @@ function officeList(config) {
   })
   var $divStmts = $(divStmts.join(''));
   $divStmts.on('click', 'button', function () {
-    config.removeUser($(this).attr('data-id') * 1);
+    config.removeOffice($(this).attr('data-id') * 1);
   })
   container.empty();
   container.append($divStmts);

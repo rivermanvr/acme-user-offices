@@ -24,6 +24,25 @@ $(document).ready(() => {
 
     renderPageData();
 
+    //filtering out user records (in all results)
+
+    function userFilter(id) {
+      results[0] = results[0].filter(user => {
+        return user.id !== id;
+      })
+      results[1].forEach(office => {
+        office.users = office.users.filter(user => {
+          return user.id !== id;
+        })
+      })
+    }
+
+    //filter out office records
+
+    function officeFilter() {
+      //....................................................
+    }
+
     //render userEntry component
 
     function renderUserEntry() {
@@ -73,9 +92,7 @@ $(document).ready(() => {
         url: '/users/' + id
       })
       .then(() => {
-        return getData();
-      })
-      .then(results => {
+        userFilter(id * 1);
         renderUserList();
         renderOfficeList();
       })
