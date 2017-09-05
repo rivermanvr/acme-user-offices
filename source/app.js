@@ -39,7 +39,7 @@ $(document).ready(() => {
 
     //correct records on user office change
 
-    function officeFilter(userId, officeId) {
+    function userOfficeFilter(userId, officeId) {
       results[0].forEach(user => {
         if (user.id === userId) user.officeId = officeId;
       })
@@ -49,6 +49,14 @@ $(document).ready(() => {
           return user.id !== userId;
         })
         if (userId !== 0 && office.id === officeId) office.users.push(userObj);
+      })
+    }
+
+    //filtering out deleted office records
+
+    function officeFilter(id) {
+      results[1] = results[1].filter(office => {
+        return office.id !== id;
       })
     }
 
@@ -116,7 +124,7 @@ $(document).ready(() => {
         url: '/users/' + userId + '/office/' + officeId
       })
       .then(() => {
-        officeFilter(userId * 1, officeId * 1);
+        userOfficeFilter(userId * 1, officeId * 1);
         renderUserList();
         renderOfficeList();
       })
@@ -135,12 +143,16 @@ $(document).ready(() => {
     //removeOffice function
 
     function removeOffice (id) {
-      console.log('I am in the removeOffice function', id)
-
-      //ajax request.............................................
-      //need a then here.........................................
-      renderUserList();
-      renderOfficeList();
+      $.ajax({
+        method: 'DELETE',
+        url: '/offices/' + id
+      })
+      .then(() => {
+        id = id * 1;
+        officeFilter(id);
+        renderUserList();
+        renderOfficeList();
+      })
     }
 
   })
