@@ -31,9 +31,11 @@ $(document).ready(() => {
           method: 'POST',
           url: '/users/' + name
         })
-        //add the user to the result array
-        error1 = false;
-        renderUserList()
+        .then(user => {
+          results[0].push(user);
+          error1 = false;
+          renderUserList()
+        })
       } else {
         error1 = true;
       }
@@ -42,7 +44,25 @@ $(document).ready(() => {
 
     //render userList component
     function renderUserList () {
-      console.log('in the userList render function')
+      userList({
+        id: '#userList',
+        users: results[0],
+        removeUser
+      });
+    }
+
+    //removeUser function (ajax)
+    function removeUser (id) {
+      $.ajax({
+        method: 'DELETE',
+        url: '/users/' + id
+      })
+      .then(() => {
+        results[0] = results[0].filter(user => {
+          return user.id !== id;
+        })
+        renderUserList()
+      })
     }
 
     //call main rendering function

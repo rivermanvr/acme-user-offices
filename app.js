@@ -30,14 +30,16 @@ app.use('/offices', routesOffices);
 app.get('/seed', (req, res, next) => {
   Promise.all([
     models.User.findAll({
-      include: [models.Office]
+      include: [models.Office],
+      order: [['id']]
     }),
     models.Office.findAll({
-      include: [models.User]
+      include: [models.User],
+      order: [['id']]
     })
   ])
-  .then((users, offices) => {
-    res.send({ users, offices });
+  .then(results => {
+    res.send(results);
   })
 })
 
