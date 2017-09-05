@@ -11,9 +11,6 @@ const morgan = require( 'morgan' );
 const db = require( './db' );
 const models = db.models;
 
-let config = process.env;
-config = require( './env.json' );
-
 swig.setDefaults({ cache: false });
 app.set('view engine', 'html');
 app.engine('html', swig.renderFile);
@@ -26,11 +23,6 @@ app.use('/vendor/jquery', express.static(path.join(__dirname, 'node_modules/jque
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-app.use('/', (req, res, next) => {
-  res.locals.GOOGLE_API_KEY = config.GOOGLE_API_KEY;
-  next();
-})
 
 app.use('/users', routesUsers);
 app.use('/offices', routesOffices);

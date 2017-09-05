@@ -5,7 +5,8 @@ function officeEntry (config) {
     <label for="name">
       <h5>Office Location:</h5>
     </label>
-    <input id="searchInput" class="controls colWidth95 marginbelowsm" type="text" placeholder="Enter a location">
+    <input name="name" type="text" class="colWidth95 marginbelowsm" placeholder="Enter: address, city, state..." />
+    <button class="btn btn-primary">+</button>
     </div>
   `;
   const $template = $(template);
