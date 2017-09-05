@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 app.use('/users', routesUsers);
 app.use('/offices', routesOffices);
 
-app.get('/seed', (req, res, next) => {
+app.get('/data', (req, res, next) => {
   Promise.all([
     models.User.findAll({
       include: [models.Office],
