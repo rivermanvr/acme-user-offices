@@ -30,7 +30,6 @@ app.use('/offices', routesOffices);
 app.get('/data', (req, res, next) => {
   Promise.all([
     models.User.findAll({
-      include: [models.Office],
       order: [['id']]
     }),
     models.Office.findAll({

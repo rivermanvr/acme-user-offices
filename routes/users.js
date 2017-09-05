@@ -14,7 +14,9 @@ router.delete('/:id', (req, res, next) => {
 router.put('/:id/office/:officeId', (req, res, next) => {
   models.User.findById(req.params.id)
     .then(user => {
-      return user.setOffice(req.params.officeId);
+      console.log(req.params.officeId, typeof req.params.officeId)
+      if (req.params.officeId === '0') return user.setOffice(null);
+      else return user.setOffice(req.params.officeId);
     })
     .then(user => {
       res.status(200).send(user);

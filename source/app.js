@@ -24,7 +24,7 @@ $(document).ready(() => {
 
     renderPageData();
 
-    //filtering out user records (in all results)
+    //filtering out deleted user records
 
     function userFilter(id) {
       results[0] = results[0].filter(user => {
@@ -37,10 +37,19 @@ $(document).ready(() => {
       })
     }
 
-    //filter out office records
+    //correct records on user office change
 
-    function officeFilter() {
-      //....................................................
+    function officeFilter(userId, officeId) {
+      results[0].forEach(user => {
+        if (user.id === userId) user.officeId = officeId;
+      })
+      let userObj = { id: userId }
+      results[1].forEach(office => {
+        office.users = office.users.filter(user => {
+          return user.id !== userId;
+        })
+        if (userId !== 0 && office.id === officeId) office.users.push(userObj);
+      })
     }
 
     //render userEntry component
@@ -92,7 +101,8 @@ $(document).ready(() => {
         url: '/users/' + id
       })
       .then(() => {
-        userFilter(id * 1);
+        id = id * 1;
+        userFilter(id);
         renderUserList();
         renderOfficeList();
       })
@@ -106,9 +116,7 @@ $(document).ready(() => {
         url: '/users/' + userId + '/office/' + officeId
       })
       .then(() => {
-        return getData();
-      })
-      .then(results => {
+        officeFilter(userId * 1, officeId * 1); //.........I am working on this.......
         renderUserList();
         renderOfficeList();
       })
@@ -117,7 +125,6 @@ $(document).ready(() => {
     //render officeList component
 
     function renderOfficeList () {
-      console.log('I am in the renderOfficeList function')
       officeList({
         id: '#officeList',
         offices: results[1],
