@@ -9,7 +9,6 @@ $(document).ready(() => {
   }
   getData()
   .then(results => {
-    console.log('initial get: ', results);
     let error1 = false;
 
     //main rendering function
@@ -18,6 +17,7 @@ $(document).ready(() => {
       renderUserEntry();
       renderUserList();
       renderOfficeList();
+      renderOfficeEntry();
     }
 
     //call main rendering function
@@ -152,6 +152,30 @@ $(document).ready(() => {
         officeFilter(id);
         renderUserList();
         renderOfficeList();
+      })
+    }
+
+    // render officeEntry component
+
+    function renderOfficeEntry () {
+      officeEntry({
+        id: '#officeEntry',
+        addOffice
+      })
+    }
+
+    //addOffice function (ajax)
+
+    function addOffice (name) {
+      $.ajax({
+        method: 'POST',
+        url: '/offices/' + name + '/40.111/1.7900'
+      })
+      .then(office => {
+        results[1] = results[1].concat(office);
+        renderOfficeList();
+        renderOfficeEntry();
+        renderUserList();
       })
     }
 
