@@ -24,6 +24,10 @@ $(document).ready(() => {
 
     renderPageData();
 
+    // Need to initialize the map 
+
+    initMap()
+
     //filtering out deleted user records
 
     function userFilter(id) {
@@ -159,17 +163,40 @@ $(document).ready(() => {
 
     function renderOfficeEntry () {
       officeEntry({
-        id: '#officeEntry',
-        addOffice
+        id: '#officeEntry'
       })
+    }
+
+    //officeEntry listener
+
+    function initMap() {
+      var input = document.getElementById('map-input');
+      var autocomplete = new google.maps.places.Autocomplete(input);
+      autocomplete.addListener('place_changed', function() {
+        var place = autocomplete.getPlace();
+        if (!place.geometry) {
+          // User entered the name of a Place that was not suggested and
+          // pressed the Enter key, or the Place Details request failed.
+          window.alert("No details available for input: '" + place.name + "'");
+          return;
+        }
+    
+        var officeObj = {
+          name: place.formatted_address,
+          lat: place.geometry.location.lat(),
+          lng: place.geometry.location.lng()
+        };
+        addOffice(officeObj);
+      });
     }
 
     //addOffice function (ajax)
 
-    function addOffice (name) {
+    function addOffice (officeObj) {
       $.ajax({
+        url: '/offices',
         method: 'POST',
-        url: '/offices/' + name + '/40.111/1.7900'
+        data: obj
       })
       .then(office => {
         results[1] = results[1].concat(office);

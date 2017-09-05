@@ -11,8 +11,8 @@ const models = db.models;
       .catch(next);
   });
 
-  router.post('/:name/:lat/:lng', (req, res, next) => {
-    models.Office.create({ name: req.params.name, lat: req.params.lat, lng: req.params.lng })
+  router.post('/', (req, res, next) => {
+    models.Office.create(req.body)
       .then(office => {
         return models.Office.findAll({
           where: { id: office.id },
