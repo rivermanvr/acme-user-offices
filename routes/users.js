@@ -15,16 +15,12 @@ router.put('/:id', (req, res, next) => {
 
 });
 
-router.post('/', (req, res, next) => {
-  if (req.body.name) {
-    models.User.create({ name: req.body.name })
-      .then(() => {
-        res.sendStatus(201)
-      })
-      .catch(next);
-  } else {
-    res.sendStatus(204)
-  }
+router.post('/:name', (req, res, next) => {
+  models.User.create({ name: req.params.name })
+    .then(() => {
+      res.sendStatus(201)
+    })
+    .catch(next);
 });
 
 module.exports = router
