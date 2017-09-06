@@ -15,11 +15,11 @@ swig.setDefaults({ cache: false });
 app.set('view engine', 'html');
 app.engine('html', swig.renderFile);
 
-let config = process.env;
-config = require( './env.json' );
+// let config = process.env;
+// require( './env.json' );
 
 app.use('/', (req, res, next) => {
-  res.locals.GOOGLE_API_KEY = config.GOOGLE_API_KEY;
+  res.locals.GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
   next();
 })
 
