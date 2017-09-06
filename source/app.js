@@ -196,7 +196,7 @@ $(document).ready(() => {
       $.ajax({
         url: '/offices',
         method: 'POST',
-        data: obj
+        data: officeObj
       })
       .then(office => {
         results[1] = results[1].concat(office);
