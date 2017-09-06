@@ -5,7 +5,7 @@ function officeEntry (config) {
       <label for="name">
         <h5>Office Location:</h5>
       </label>
-      <input id='map-input' name="name" placeholder="Enter a location" autocomplete="off">
+      <input id='map-input' class="colWidth95 marginbelowsm" type="text" name="name" placeholder="Enter a location" autocomplete="off">
     </div>
   `;
   const $template = $(template);
